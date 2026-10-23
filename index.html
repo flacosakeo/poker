@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Poker - Texas Hold'em & 5-Card Draw</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+    <div id="menu-screen" class="screen active">
+        <div class="menu-container">
+            <h1>MESA DE PÓKER</h1>
+            <p>Selecciona la modalidad de juego</p>
+            <div class="mode-select">
+                <button class="btn-primary" onclick="startGame('holdem')">Texas Hold'em</button>
+                <button class="btn-secondary" onclick="startGame('draw')">5-Card Draw (Clásico)</button>
+            </div>
+            <!-- Switch en el Menú Principal -->
+            <div class="theme-switch-container">
+                <span>Modo Claro/Oscuro:</span>
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle" checked onchange="toggleTheme()">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="table-header">
+            <button class="btn-back" onclick="returnToMenu()">← Menú</button>
+            <div class="game-info">
+                <span id="game-mode-title">Modalidad</span> | Pozo Total: <span id="pot-amount">$0</span>
+            </div>
+            <div class="header-right-controls">
+                <label class="switch" title="Cambiar Tema">
+                    <input type="checkbox" id="theme-toggle-game" checked onchange="toggleTheme()">
+                    <span class="slider round"></span>
+                </label>
+                <div class="dealer-badge">Dealer</div>
+            </div>
+        </div>
+
+        <div class="game-body-layout">
+            <!-- Mesa de Póker -->
+            <div class="poker-table" id="table-container">
+                <div id="flying-chips-container"></div>
+                <div id="flying-cards-container"></div>
+
+                <!-- Posición de Bots -->
+                <div id="ai-players" class="ai-container"></div>
+
+                <div class="center-table-zone" id="deck-center-point">
+                    <div class="pot-cluster" id="pot-cluster">
+                        <div class="chip-stack">
+                            <div class="casino-chip chip-gold"></div>
+                            <div class="casino-chip chip-red"></div>
+                            <div class="casino-chip chip-blue"></div>
+                        </div>
+                        <span id="center-pot-label">$0</span>
+                    </div>
+
+                    <div id="community-area" class="community-area">
+                        <h3>Cartas Comunitarias</h3>
+                        <div id="community-cards" class="cards-container"></div>
+                    </div>
+                    <div class="table-center-msg" id="table-msg">¡Comienza la ronda!</div>
+                </div>
+
+                <!-- Posición del Jugador Humano -->
+                <div class="player-area" id="player-spot">
+                    <div class="player-info">
+                        <span id="player-name">Tú</span> (<span id="player-chips">$1000</span>)
+                        <span id="player-hand-rank" class="hand-rank"></span>
+                    </div>
+                    <div id="player-cards" class="cards-container player-cards"></div>
+                    <div id="draw-actions" class="draw-actions hidden">
+                        <button id="btn-confirm-draw" class="btn-action btn-confirm" onclick="confirmDiscard()" disabled>Cambiar Cartas</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bitácora de Movimientos -->
+            <div class="log-panel">
+                <h3>Bitácora de la Partida</h3>
+                <div id="game-log" class="log-content">
+                    <div class="log-entry system">Partida iniciada. ¡Buena suerte!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <div class="bet-controls">
+                <button class="btn-control" onclick="adjustBet(-50)">-50</button>
+                <input type="range" id="raise-slider" min="0" max="500" step="10" value="50" oninput="updateRaiseVal(this.value)">
+                <button class="btn-control" onclick="adjustBet(50)">+50</button>
+                <span id="raise-val-label">$50</span>
+            </div>
+            <div class="action-buttons">
+                <button id="btn-fold" class="btn action-fold" onclick="playerAction('fold')">No ir (Fold)</button>
+                <button id="btn-check-call" class="btn action-call" onclick="playerAction('call')">Igualar (Call)</button>
+                <button id="btn-raise" class="btn action-raise" onclick="playerAction('raise')">Subir (Raise)</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-msg" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">Resultado</h2>
+            <p id="modal-text">Mensaje</p>
+            <button class="btn-primary" onclick="closeModal()">Continuar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
