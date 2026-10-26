@@ -265,12 +265,12 @@ function renderAiPlayers() {
                 }
             });
         } else {
-            cardsHtml = `<span style="font-size:0.75rem; color:#e74c3c; font-style:italic;">Retirado</span>`;
+            cardsHtml = `<span style="font-size:0.7rem; color:#e74c3c; font-style:italic;">Retirado</span>`;
         }
 
         let aiRankText = '';
         if (gameState.handOver && !p.folded) {
-            aiRankText = `<br><span style="color:#f1c40f; font-size:0.75rem;">${evaluatePlayerHand(p).name}</span>`;
+            aiRankText = `<br><span style="color:#f1c40f; font-size:0.7rem;">${evaluatePlayerHand(p).name}</span>`;
         }
 
         el.innerHTML = `
@@ -290,7 +290,7 @@ function updateControls() {
     }
 
     let callAmount = gameState.currentBet - gameState.players[0].bet;
-    document.getElementById('btn-check-call').innerText = callAmount === 0 ? "Pasar (Check)" : `Igualar ($${callAmount})`;
+    document.getElementById('btn-check-call').innerText = callAmount === 0 ? "Check" : `Call ($${callAmount})`;
     
     let slider = document.getElementById('raise-slider');
     slider.min = gameState.currentBet + 10;
@@ -324,14 +324,14 @@ function animateChipToCenter(playerId) {
     chip.className = 'flying-chip';
 
     let startX = table.clientWidth / 2;
-    let startY = table.clientHeight - 80;
+    let startY = table.clientHeight - 60;
 
-    if (playerId === 1) { startX = 80; startY = table.clientHeight / 2; }
-    else if (playerId === 2) { startX = table.clientWidth / 2; startY = 60; }
-    else if (playerId === 3) { startX = table.clientWidth - 80; startY = table.clientHeight / 2; }
+    if (playerId === 1) { startX = 60; startY = table.clientHeight / 2; }
+    else if (playerId === 2) { startX = table.clientWidth / 2; startY = 40; }
+    else if (playerId === 3) { startX = table.clientWidth - 60; startY = table.clientHeight / 2; }
 
-    let centerX = table.clientWidth / 2 - 10;
-    let centerY = table.clientHeight / 2 - 20;
+    let centerX = table.clientWidth / 2 - 8;
+    let centerY = table.clientHeight / 2 - 15;
 
     chip.style.setProperty('--startX', `${startX}px`);
     chip.style.setProperty('--startY', `${startY}px`);
@@ -351,11 +351,11 @@ function animateCardsFromCenter(count, targetPlayerId) {
     let centerY = table.clientHeight / 2 - 30;
 
     let targetX = table.clientWidth / 2 - 20;
-    let targetY = table.clientHeight - 100;
+    let targetY = table.clientHeight - 80;
 
-    if (targetPlayerId === 1) { targetX = 60; targetY = table.clientHeight / 2 - 30; }
-    else if (targetPlayerId === 2) { targetX = table.clientWidth / 2 - 20; targetY = 40; }
-    else if (targetPlayerId === 3) { targetX = table.clientWidth - 100; targetY = table.clientHeight / 2 - 30; }
+    if (targetPlayerId === 1) { targetX = 50; targetY = table.clientHeight / 2 - 25; }
+    else if (targetPlayerId === 2) { targetX = table.clientWidth / 2 - 20; targetY = 30; }
+    else if (targetPlayerId === 3) { targetX = table.clientWidth - 80; targetY = table.clientHeight / 2 - 25; }
 
     for (let i = 0; i < count; i++) {
         setTimeout(() => {
@@ -363,7 +363,7 @@ function animateCardsFromCenter(count, targetPlayerId) {
             flyingCard.className = 'flying-deal-card';
             flyingCard.style.setProperty('--centerX', `${centerX}px`);
             flyingCard.style.setProperty('--centerY', `${centerY}px`);
-            flyingCard.style.setProperty('--targetX', `${targetX + (i * 12)}px`);
+            flyingCard.style.setProperty('--targetX', `${targetX + (i * 10)}px`);
             flyingCard.style.setProperty('--targetY', `${targetY}px`);
 
             container.appendChild(flyingCard);
@@ -377,22 +377,22 @@ function animateChipsToWinner(winnerId) {
     let table = document.getElementById('table-container');
     if (!container || !table) return;
 
-    let centerX = table.clientWidth / 2 - 10;
-    let centerY = table.clientHeight / 2 - 20;
+    let centerX = table.clientWidth / 2 - 8;
+    let centerY = table.clientHeight / 2 - 15;
 
     let targetX = table.clientWidth / 2;
-    let targetY = table.clientHeight - 80;
+    let targetY = table.clientHeight - 60;
 
-    if (winnerId === 1) { targetX = 80; targetY = table.clientHeight / 2; }
-    else if (winnerId === 2) { targetX = table.clientWidth / 2; targetY = 60; }
-    else if (winnerId === 3) { targetX = table.clientWidth - 80; targetY = table.clientHeight / 2; }
+    if (winnerId === 1) { targetX = 60; targetY = table.clientHeight / 2; }
+    else if (winnerId === 2) { targetX = table.clientWidth / 2; targetY = 40; }
+    else if (winnerId === 3) { targetX = table.clientWidth - 60; targetY = table.clientHeight / 2; }
 
     for (let i = 0; i < 4; i++) {
         setTimeout(() => {
             let chip = document.createElement('div');
             chip.className = 'flying-chip-to-winner';
-            chip.style.setProperty('--centerX', `${centerX + (Math.random()*30-15)}px`);
-            chip.style.setProperty('--centerY', `${centerY + (Math.random()*30-15)}px`);
+            chip.style.setProperty('--centerX', `${centerX + (Math.random()*20-10)}px`);
+            chip.style.setProperty('--centerY', `${centerY + (Math.random()*20-10)}px`);
             chip.style.setProperty('--winX', `${targetX}px`);
             chip.style.setProperty('--winY', `${targetY}px`);
 
@@ -618,14 +618,12 @@ function confirmDiscard() {
     }
 }
 
-// EVALUACIÓN OFICIAL COMPLETA (INCLUYENDO ESCALERA Y ESCALERA REAL)
 function evaluatePlayerHand(player) {
     let cards = [...player.hand];
     if (gameState.mode === 'holdem' && gameState.communityCards.length > 0) {
         cards = cards.concat(gameState.communityCards);
     }
 
-    // Ordenar cartas por peso descendente
     cards.sort((a, b) => b.weight - a.weight);
 
     let values = cards.map(c => c.weight);
@@ -638,7 +636,6 @@ function evaluatePlayerHand(player) {
     let trips = Object.keys(counts).map(Number).filter(k => counts[k] === 3).sort((a,b) => b - a);
     let quads = Object.keys(counts).map(Number).filter(k => counts[k] === 4).sort((a,b) => b - a);
 
-    // Verificar Color (Flush)
     let flushSuit = null;
     let suitCounts = {};
     suits.forEach(s => suitCounts[s] = (suitCounts[s] || 0) + 1);
@@ -651,10 +648,8 @@ function evaluatePlayerHand(player) {
 
     let flushCards = flushSuit ? cards.filter(c => c.suit === flushSuit).map(c => c.weight) : [];
 
-    // Verificar Escalera (Straight)
     function findStraight(valList) {
         let uniqueVals = [...new Set(valList)].sort((a,b) => b - a);
-        // Manejar As bajo (A-2-3-4-5)
         if (uniqueVals.includes(14)) {
             uniqueVals.push(1);
         }
@@ -664,7 +659,7 @@ function evaluatePlayerHand(player) {
             if (uniqueVals[i] - 1 === uniqueVals[i+1]) {
                 streak++;
                 if (streak >= 5) {
-                    highStraight = uniqueVals[i - 3]; // Tomar la carta más alta de la escalera de 5
+                    highStraight = uniqueVals[i - 3];
                     break;
                 }
             } else if (uniqueVals[i] !== uniqueVals[i+1]) {
@@ -677,53 +672,34 @@ function evaluatePlayerHand(player) {
     let straightHigh = findStraight(values);
     let flushStraightHigh = flushCards.length >= 5 ? findStraight(flushCards) : -1;
 
-    // 10. Escalera Real (Royal Flush)
     if (flushStraightHigh === 14) {
         return { score: 1000, name: 'Escalera Real' };
     }
-
-    // 9. Escalera de Color (Straight Flush)
     if (flushStraightHigh !== -1) {
         return { score: 900 + flushStraightHigh, name: 'Escalera de Color (' + CARD_NAME_MAP[flushStraightHigh] + ')' };
     }
-
-    // 8. Póker (Four of a Kind)
     if (quads.length > 0) {
         return { score: 800 + quads[0], name: 'Póker de ' + CARD_NAME_MAP[quads[0]] };
     }
-
-    // 7. Full House
     if (trips.length > 0 && (pairs.length > 0 || trips.length > 1)) {
-        let pairVal = pairs.length > 0 ? pairs[0] : trips[1];
         return { score: 700 + trips[0], name: 'Full House (' + CARD_NAME_MAP[trips[0]] + ')' };
     }
-
-    // 6. Color (Flush)
     if (flushCards.length >= 5) {
         return { score: 600 + flushCards[0], name: 'Color (' + CARD_NAME_MAP[flushCards[0]] + ' alta)' };
     }
-
-    // 5. Escalera (Straight)
     if (straightHigh !== -1) {
         return { score: 500 + straightHigh, name: 'Escalera al ' + CARD_NAME_MAP[straightHigh] };
     }
-
-    // 4. Trío (Three of a Kind)
     if (trips.length > 0) {
         return { score: 400 + trips[0], name: 'Trío de ' + CARD_NAME_MAP[trips[0]] };
     }
-
-    // 3. Doble Pareja (Two Pair)
     if (pairs.length >= 2) {
         return { score: 300 + pairs[0], name: 'Doble Pareja (' + CARD_NAME_MAP[pairs[0]] + ' y ' + CARD_NAME_MAP[pairs[1]] + ')' };
     }
-
-    // 2. Pareja (One Pair)
     if (pairs.length === 1) {
         return { score: 200 + pairs[0], name: 'Pareja de ' + CARD_NAME_MAP[pairs[0]] };
     }
     
-    // 1. Carta Alta (High Card)
     let highCardNum = values[0];
     let highCardName = CARD_NAME_MAP[highCardNum] || highCardNum;
     return { score: 100 + highCardNum, name: 'Carta Alta (' + highCardName + ')' };

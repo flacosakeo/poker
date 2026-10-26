@@ -36,8 +36,8 @@ body.light-mode {
 body {
     background-color: var(--bg-main);
     color: var(--text-color);
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow-x: hidden;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -57,33 +57,37 @@ body {
     justify-content: center;
     align-items: center;
     background: var(--bg-screen);
+    padding: 20px;
 }
 
 .menu-container {
     text-align: center;
     background: var(--bg-panel);
-    padding: 40px;
+    padding: 30px 20px;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     border: 1px solid var(--border-color);
+    max-width: 450px;
+    width: 100%;
 }
 
 .menu-container h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin-bottom: 10px;
     color: #f1c40f;
 }
 
 .menu-container p {
     color: var(--text-muted);
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .mode-select {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     justify-content: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .theme-switch-container {
@@ -94,12 +98,12 @@ body {
     font-size: 0.9rem;
     color: var(--text-muted);
     border-top: 1px solid var(--border-color);
-    padding-top: 20px;
+    padding-top: 15px;
 }
 
 .btn-primary, .btn-secondary {
-    padding: 12px 24px;
-    font-size: 1rem;
+    padding: 10px 20px;
+    font-size: 0.95rem;
     font-weight: bold;
     border: none;
     border-radius: 8px;
@@ -131,8 +135,8 @@ body {
 .switch {
     position: relative;
     display: inline-block;
-    width: 48px;
-    height: 24px;
+    width: 44px;
+    height: 22px;
 }
 
 .switch input { 
@@ -152,8 +156,8 @@ body {
 .slider:before {
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
+    height: 16px;
+    width: 16px;
     left: 3px;
     bottom: 3px;
     background-color: white;
@@ -165,11 +169,11 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(24px);
+    transform: translateX(22px);
 }
 
 .slider.round {
-    border-radius: 24px;
+    border-radius: 22px;
 }
 
 .slider.round:before {
@@ -181,7 +185,7 @@ input:checked + .slider:before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 25px;
+    padding: 8px 15px;
     background: var(--bg-header);
     border-bottom: 1px solid var(--border-color);
     height: 50px;
@@ -190,16 +194,17 @@ input:checked + .slider:before {
 .header-right-controls {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .btn-back {
     background: transparent;
     color: var(--text-muted);
     border: 1px solid var(--border-color);
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 6px;
     cursor: pointer;
+    font-size: 0.85rem;
 }
 
 .btn-back:hover {
@@ -208,7 +213,7 @@ input:checked + .slider:before {
 }
 
 .game-info {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: bold;
 }
 
@@ -219,8 +224,8 @@ input:checked + .slider:before {
 .dealer-badge {
     background: #e74c3c;
     color: #fff;
-    padding: 4px 8px;
-    font-size: 0.8rem;
+    padding: 3px 7px;
+    font-size: 0.75rem;
     border-radius: 50%;
     font-weight: bold;
 }
@@ -228,8 +233,8 @@ input:checked + .slider:before {
 .game-body-layout {
     display: flex;
     flex: 1;
-    padding: 10px 20px;
-    gap: 20px;
+    padding: 10px;
+    gap: 10px;
     overflow: hidden;
     height: calc(100vh - 110px);
 }
@@ -238,16 +243,17 @@ input:checked + .slider:before {
 .poker-table {
     flex: 3;
     background: var(--table-bg);
-    border-radius: 100px;
-    border: 10px solid #8e44ad;
+    border-radius: 60px;
+    border: 8px solid #8e44ad;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.6), 0 5px 15px rgba(0,0,0,0.4);
+    padding: 12px;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
     position: relative;
     overflow: hidden;
+    min-height: 380px;
 }
 
 #flying-chips-container, #flying-cards-container {
@@ -264,36 +270,36 @@ input:checked + .slider:before {
 .pot-cluster {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     background: rgba(0, 0, 0, 0.75);
-    padding: 5px 14px;
+    padding: 4px 10px;
     border-radius: 20px;
     border: 1px solid rgba(241, 196, 15, 0.6);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-    margin-bottom: 6px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.6);
+    margin-bottom: 4px;
 }
 
 .chip-stack {
     position: relative;
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
 }
 
 .casino-chip {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     border: 2px dashed #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.4);
     position: absolute;
 }
 
 .chip-gold { background: #f1c40f; top: 0; left: 0; }
-.chip-red { background: #e74c3c; top: -3px; left: 3px; }
-.chip-blue { background: #3498db; top: -6px; left: 6px; }
+.chip-red { background: #e74c3c; top: -3px; left: 2px; }
+.chip-blue { background: #3498db; top: -6px; left: 4px; }
 
 #center-pot-label {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: bold;
     color: var(--money-color);
 }
@@ -302,7 +308,7 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 }
 
 .community-area {
@@ -310,24 +316,24 @@ input:checked + .slider:before {
 }
 
 .community-area h3 {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #a3e4d7;
     margin-bottom: 2px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .cards-container {
     display: flex;
-    gap: 6px;
+    gap: 4px;
     justify-content: center;
-    min-height: 95px;
+    min-height: 75px;
     align-items: center;
 }
 
 /* CARTAS DE RIVALES ENCIMADAS */
 .ai-player .cards-container .card {
-    margin-left: -22px;
+    margin-left: -16px;
 }
 
 .ai-player .cards-container .card:first-child {
@@ -336,18 +342,18 @@ input:checked + .slider:before {
 
 /* CARTAS */
 .card {
-    width: 58px;
-    height: 85px;
+    width: 48px;
+    height: 72px;
     background: #fff;
     color: #000;
-    border-radius: 6px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 4px 6px;
+    padding: 3px 4px;
     font-weight: bold;
-    font-size: 0.95rem;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    font-size: 0.85rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     position: relative;
     user-select: none;
     transition: transform 0.2s ease, background-color 0.2s, box-shadow 0.3s;
@@ -367,23 +373,23 @@ input:checked + .slider:before {
 }
 
 .card.selectable:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
 }
 
 .card.selected {
-    border: 3px solid #f1c40f;
-    transform: translateY(-24px) !important;
-    box-shadow: 0 8px 16px rgba(241, 196, 15, 0.4);
+    border: 2px solid #f1c40f;
+    transform: translateY(-18px) !important;
+    box-shadow: 0 6px 12px rgba(241, 196, 15, 0.4);
 }
 
 .player-area.active-turn .card {
-    box-shadow: 0 0 15px 3px #f1c40f, 0 3px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 0 12px 2px #f1c40f, 0 2px 4px rgba(0,0,0,0.3);
     border: 2px solid #f1c40f;
 }
 
 .ai-player.winner-highlight {
     border-color: #2ecc71 !important;
-    box-shadow: 0 0 12px #2ecc71 !important;
+    box-shadow: 0 0 10px #2ecc71 !important;
     background: rgba(46, 204, 113, 0.2);
 }
 
@@ -395,7 +401,7 @@ input:checked + .slider:before {
 .card-top {
     align-self: flex-start;
     line-height: 1;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
 }
 
 .card-center {
@@ -403,7 +409,7 @@ input:checked + .slider:before {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     line-height: 1;
 }
 
@@ -411,7 +417,7 @@ input:checked + .slider:before {
     align-self: flex-end;
     line-height: 1;
     transform: rotate(180deg);
-    font-size: 0.85rem;
+    font-size: 0.75rem;
 }
 
 /* AI PLAYERS */
@@ -419,48 +425,50 @@ input:checked + .slider:before {
     display: flex;
     justify-content: space-around;
     width: 100%;
+    gap: 5px;
 }
 
 .ai-player {
     background: var(--ai-bg);
-    padding: 6px 12px;
-    border-radius: 8px;
+    padding: 4px 8px;
+    border-radius: 6px;
     text-align: center;
     border: 1px solid var(--border-color);
-    min-width: 120px;
+    min-width: 90px;
     transition: all 0.3s ease;
 }
 
 .ai-player.active-turn {
     border-color: #f1c40f;
-    box-shadow: 0 0 8px #f1c40f;
+    box-shadow: 0 0 6px #f1c40f;
 }
 
 .ai-name {
-    font-size: 0.85rem;
-    margin-bottom: 2px;
+    font-size: 0.75rem;
+    margin-bottom: 1px;
     font-weight: bold;
 }
 
 .ai-chips {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: var(--money-color);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     font-weight: bold;
 }
 
 .ai-status {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: #f39c12;
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
 .table-center-msg {
     background: rgba(0,0,0,0.6);
-    padding: 4px 12px;
-    border-radius: 15px;
-    font-size: 0.85rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
     color: #f1c40f;
+    text-align: center;
 }
 
 /* PLAYER AREA */
@@ -468,18 +476,18 @@ input:checked + .slider:before {
     text-align: center;
     width: 100%;
     transition: all 0.3s ease;
-    padding: 5px;
-    border-radius: 12px;
+    padding: 3px;
+    border-radius: 10px;
 }
 
 .player-area.active-turn {
     background: rgba(241, 196, 15, 0.1);
-    box-shadow: inset 0 0 10px rgba(241, 196, 15, 0.3);
+    box-shadow: inset 0 0 8px rgba(241, 196, 15, 0.3);
 }
 
 .player-info {
-    margin-bottom: 4px;
-    font-size: 0.95rem;
+    margin-bottom: 3px;
+    font-size: 0.85rem;
 }
 
 .player-info span:nth-child(2) {
@@ -488,10 +496,10 @@ input:checked + .slider:before {
 }
 
 .hand-rank {
-    margin-left: 8px;
+    margin-left: 6px;
     color: #f1c40f;
     font-weight: bold;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
 }
 
 /* LOG PANEL */
@@ -499,19 +507,19 @@ input:checked + .slider:before {
     flex: 1;
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    padding: 12px;
+    padding: 8px;
     max-height: 100%;
 }
 
 .log-panel h3 {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: #f1c40f;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 5px;
+    padding-bottom: 4px;
     text-align: center;
 }
 
@@ -520,16 +528,16 @@ input:checked + .slider:before {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    font-size: 0.82rem;
+    gap: 4px;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
 .log-entry {
     background: rgba(128, 128, 128, 0.08);
-    padding: 6px 8px;
+    padding: 4px 6px;
     border-radius: 4px;
-    border-left: 3px solid #2980b9;
+    border-left: 2px solid #2980b9;
 }
 
 .log-entry.action { border-left-color: #27ae60; }
@@ -538,28 +546,30 @@ input:checked + .slider:before {
 /* ACTION BAR */
 .action-bar {
     background: var(--bg-header);
-    padding: 10px 25px;
+    padding: 8px 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid var(--border-color);
-    height: 60px;
+    height: 55px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .bet-controls {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
 }
 
 .btn-control {
     background: var(--border-color);
     color: var(--text-color);
     border: none;
-    padding: 5px 10px;
-    border-radius: 6px;
+    padding: 4px 8px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .btn-control:hover {
@@ -567,28 +577,29 @@ input:checked + .slider:before {
 }
 
 #raise-slider {
-    width: 110px;
+    width: 80px;
     cursor: pointer;
 }
 
 #raise-val-label {
     font-weight: bold;
     color: #f1c40f;
-    min-width: 45px;
+    min-width: 35px;
+    font-size: 0.85rem;
 }
 
 .action-buttons {
     display: flex;
-    gap: 10px;
+    gap: 6px;
 }
 
 .btn {
-    padding: 8px 16px;
+    padding: 6px 12px;
     font-weight: bold;
     border: none;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .action-fold {
@@ -610,9 +621,9 @@ input:checked + .slider:before {
 .action-raise:hover { background-color: #e67e22; }
 
 .draw-actions {
-    margin-top: 6px;
+    margin-top: 4px;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     justify-content: center;
 }
 
@@ -620,10 +631,10 @@ input:checked + .slider:before {
     background: #2980b9;
     color: #fff;
     border: none;
-    padding: 5px 12px;
-    border-radius: 5px;
+    padding: 4px 10px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
 }
 
 .btn-action:disabled {
@@ -640,15 +651,15 @@ input:checked + .slider:before {
     display: none !important;
 }
 
-/* ANIMACIONES */
+/* ANIMACIONES RESPONSIVE */
 .flying-deal-card {
     position: absolute;
-    width: 40px;
-    height: 60px;
+    width: 35px;
+    height: 50px;
     background: linear-gradient(135deg, #2980b9, #2c3e50);
     border: 2px solid #fff;
     border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
     z-index: 70;
     animation: dealCardAnimation 0.5s ease-out forwards;
 }
@@ -670,12 +681,12 @@ input:checked + .slider:before {
 
 .flying-chip {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: #f1c40f;
     border: 2px dashed #fff;
     border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     z-index: 60;
     animation: flyToCenter 0.5s ease-out forwards;
 }
@@ -697,12 +708,12 @@ input:checked + .slider:before {
 
 .flying-chip-to-winner {
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: #2ecc71;
     border: 2px dashed #fff;
     border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     z-index: 60;
     animation: flyToWinner 0.6s ease-in-out forwards;
 }
@@ -734,25 +745,78 @@ input:checked + .slider:before {
     justify-content: center;
     align-items: center;
     z-index: 100;
+    padding: 15px;
 }
 
 .modal-content {
     background: var(--bg-panel);
     color: var(--text-color);
-    padding: 25px;
+    padding: 20px;
     border-radius: 12px;
     text-align: center;
     border: 1px solid var(--border-color);
-    max-width: 380px;
+    max-width: 350px;
     width: 100%;
 }
 
 .modal-content h2 {
     color: #f1c40f;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
 }
 
 .modal-content p {
     color: var(--text-muted);
-    margin-bottom: 18px;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+/* MEDIA QUERIES PARA PANTALLAS CHICAS / MÓVILES */
+@media (max-width: 900px) {
+    .game-body-layout {
+        flex-direction: column;
+        height: calc(100vh - 120px);
+        overflow-y: auto;
+    }
+    .poker-table {
+        flex: none;
+        width: 100%;
+        min-height: 320px;
+        border-radius: 40px;
+    }
+    .log-panel {
+        max-height: 110px;
+        min-height: 90px;
+    }
+    .action-bar {
+        height: auto;
+        padding: 8px 12px;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .bet-controls, .action-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 40px;
+        height: 60px;
+        font-size: 0.75rem;
+    }
+    .card-center {
+        font-size: 1rem;
+    }
+    .ai-player {
+        min-width: 75px;
+        padding: 3px 5px;
+    }
+    .menu-container {
+        padding: 20px 15px;
+    }
+    .menu-container h1 {
+        font-size: 1.8rem;
+    }
 }

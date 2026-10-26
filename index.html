@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casino Poker - Texas Hold'em & 5-Card Draw</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♠️</text></svg>">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark-mode">
@@ -30,14 +31,14 @@
         <div class="table-header">
             <button class="btn-back" onclick="returnToMenu()">← Menú</button>
             <div class="game-info">
-                <span id="game-mode-title">Modalidad</span> | Pozo Total: <span id="pot-amount">$0</span>
+                <span id="game-mode-title">Modalidad</span> | Pozo: <span id="pot-amount">$0</span>
             </div>
             <div class="header-right-controls">
                 <label class="switch" title="Cambiar Tema">
                     <input type="checkbox" id="theme-toggle-game" checked onchange="toggleTheme()">
                     <span class="slider round"></span>
                 </label>
-                <div class="dealer-badge">Dealer</div>
+                <div class="dealer-badge">D</div>
             </div>
         </div>
 
@@ -82,7 +83,7 @@
 
             <!-- Bitácora de Movimientos -->
             <div class="log-panel">
-                <h3>Bitácora de la Partida</h3>
+                <h3>Bitácora</h3>
                 <div id="game-log" class="log-content">
                     <div class="log-entry system">Partida iniciada. ¡Buena suerte!</div>
                 </div>
@@ -97,9 +98,9 @@
                 <span id="raise-val-label">$50</span>
             </div>
             <div class="action-buttons">
-                <button id="btn-fold" class="btn action-fold" onclick="playerAction('fold')">No ir (Fold)</button>
-                <button id="btn-check-call" class="btn action-call" onclick="playerAction('call')">Igualar (Call)</button>
-                <button id="btn-raise" class="btn action-raise" onclick="playerAction('raise')">Subir (Raise)</button>
+                <button id="btn-fold" class="btn action-fold" onclick="playerAction('fold')">Fold</button>
+                <button id="btn-check-call" class="btn action-call" onclick="playerAction('call')">Call</button>
+                <button id="btn-raise" class="btn action-raise" onclick="playerAction('raise')">Raise</button>
             </div>
         </div>
     </div>
