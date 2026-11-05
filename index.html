@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino Poker - Texas Hold'em & 5-Card Draw</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♠️</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+    <div id="menu-screen" class="screen active">
+        <div class="menu-container">
+            <h1>MESA DE PÓKER</h1>
+            <p>Selecciona la modalidad de juego</p>
+            <div class="mode-select">
+                <button class="btn-primary" onclick="startGame('holdem')">Texas Hold'em</button>
+                <button class="btn-secondary" onclick="startGame('draw')">5-Card Draw (Clásico)</button>
+            </div>
+            
+            <div class="stats-card" id="menu-stats">
+                <h3>Tus Estadísticas</h3>
+                <div class="stats-grid">
+                    <div>Victorias: <strong id="stats-wins">0</strong></div>
+                    <div>Manos Jugadas: <strong id="stats-hands">0</strong></div>
+                    <div>Mayor Pozo: <strong id="stats-best-pot">$0</strong></div>
+                </div>
+                <button class="btn-text-small" onclick="resetStats()">Reiniciar Estadísticas</button>
+            </div>
+
+            <!-- Controles en el Menú Principal -->
+            <div class="theme-switch-container">
+                <button class="btn-sound-toggle" id="btn-menu-sound" onclick="toggleSound()">🔊 Sonido: ON</button>
+                <div class="theme-toggle-box">
+                    <span>Modo Oscuro:</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle" checked onchange="toggleTheme()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="table-header">
+            <button class="btn-back" onclick="returnToMenu()">← Menú</button>
+            <div class="game-info">
+                <span id="game-mode-title">Modalidad</span> | Pozo: <span id="pot-amount">$0</span>
+            </div>
+            <div class="header-right-controls">
+                <button class="btn-sound-toggle" id="btn-game-sound" onclick="toggleSound()" title="Silenciar/Activar Sonido">🔊</button>
+                <label class="switch" title="Cambiar Tema">
+                    <input type="checkbox" id="theme-toggle-game" checked onchange="toggleTheme()">
+                    <span class="slider round"></span>
+                </label>
+                <div class="dealer-badge" title="Indicador de Botón Dealer">D</div>
+            </div>
+        </div>
+
+        <div class="game-body-layout">
+            <!-- Mesa de Póker -->
+            <div class="poker-table" id="table-container">
+                <div id="flying-chips-container"></div>
+                <div id="flying-cards-container"></div>
+
+                <!-- Posición de Bots -->
+                <div id="ai-players" class="ai-container"></div>
+
+                <div class="center-table-zone" id="deck-center-point">
+                    <div class="pot-cluster" id="pot-cluster">
+                        <div class="chip-stack">
+                            <div class="casino-chip chip-gold"></div>
+                            <div class="casino-chip chip-red"></div>
+                            <div class="casino-chip chip-blue"></div>
+                        </div>
+                        <span id="center-pot-label">$0</span>
+                    </div>
+
+                    <div id="community-area" class="community-area">
+                        <h3>Cartas Comunitarias</h3>
+                        <div id="community-cards" class="cards-container"></div>
+                    </div>
+                    <div class="table-center-msg" id="table-msg">¡Comienza la ronda!</div>
+                </div>
+
+                <!-- Posición del Jugador Humano -->
+                <div class="player-area" id="player-spot">
+                    <div class="player-info">
+                        <span id="player-name">Tú</span> (<span id="player-chips">$1000</span>)
+                        <span id="player-hand-rank" class="hand-rank"></span>
+                    </div>
+                    <div id="player-cards" class="cards-container player-cards"></div>
+                    <div id="draw-actions" class="draw-actions hidden">
+                        <button id="btn-confirm-draw" class="btn-action btn-confirm" onclick="confirmDiscard()">Conservar Cartas (0)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bitácora de Movimientos -->
+            <div class="log-panel">
+                <div class="log-header-bar">
+                    <h3>Bitácora</h3>
+                    <button class="btn-clear-log" onclick="clearLog()" title="Limpiar bitácora">🗑️</button>
+                </div>
+                <div id="game-log" class="log-content">
+                    <div class="log-entry system">Partida iniciada. ¡Buena suerte!</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <!-- Botones rápidos de apuesta -->
+            <div class="quick-bet-buttons">
+                <button class="btn-quick" onclick="setQuickBet('min')">Mín</button>
+                <button class="btn-quick" onclick="setQuickBet('half-pot')">1/2 Pozo</button>
+                <button class="btn-quick" onclick="setQuickBet('pot')">Pozo</button>
+                <button class="btn-quick btn-allin" onclick="setQuickBet('allin')">All-in</button>
+            </div>
+
+            <div class="bet-controls">
+                <button class="btn-control" onclick="adjustBet(-50)">-50</button>
+                <input type="range" id="raise-slider" min="0" max="500" step="10" value="50" oninput="updateRaiseVal(this.value)">
+                <button class="btn-control" onclick="adjustBet(50)">+50</button>
+                <span id="raise-val-label">$50</span>
+            </div>
+
+            <div class="action-buttons">
+                <button id="btn-fold" class="btn action-fold" onclick="playerAction('fold')">Fold</button>
+                <button id="btn-check-call" class="btn action-call" onclick="playerAction('call')">Call</button>
+                <button id="btn-raise" class="btn action-raise" onclick="playerAction('raise')">Raise</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Resultados / Rebuy / Fin de Juego -->
+    <div id="modal-msg" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">Resultado</h2>
+            <div id="modal-details" class="modal-details"></div>
+            <p id="modal-text">Mensaje</p>
+            <div id="modal-actions" class="modal-buttons">
+                <button id="modal-btn-primary" class="btn-primary" onclick="closeModal()">Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
